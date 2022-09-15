@@ -1,0 +1,23 @@
+.home-page-container{
+    margin: 50px 10px;
+}
+
+.student-details-table-container{
+    margin-top: 30px;
+}
+
+table {
+font-family: arial, sans-serif;
+border-collapse: collapse;
+width: 100%;
+}
+
+td, th {
+border: 1px solid #c7c3c3;
+text-align: left;
+padding: 8px;
+}
+
+.table-head {
+background-color: #ebebeb;
+}
