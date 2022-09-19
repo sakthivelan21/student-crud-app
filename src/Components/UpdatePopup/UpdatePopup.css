@@ -1,4 +1,4 @@
-.update-popup
+/* .update-popup
 {
 	 z-index: 2;
 	 position: fixed;
@@ -7,7 +7,7 @@
      top:0;
 	 background:#00000075;
   
-    /* align-items: center; */
+    /* align-items: center; 
 }
 @keyframes animatezoom {
   from {transform: scale(0)} 
@@ -17,4 +17,4 @@
 .popup{
     width: 50%;
     margin: 0 auto;
-}
+} */

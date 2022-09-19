@@ -13,7 +13,7 @@ const initialValue={
 }
 
 function HomePage(){
-    const navBarTitle = "Student CRUD APP"
+    const navBarTitle = "Student Crud app"
 
 
     const [studentDetails,dispatchFunction]=useReducer(reducerFunction,initialValue);
@@ -38,7 +38,7 @@ function HomePage(){
     ]);
 
     const addStudentDetails=(studentDetail)=>{
-        studentDetail.id = studentDetailsList.length+1;
+        // studentDetail.id = studentDetailsList.length+1;
         setStudentDetailsList( [...studentDetailsList,studentDetail]);
     }
 
@@ -48,6 +48,7 @@ function HomePage(){
 		event.preventDefault();
         console.log(studentDetails);
         addStudentDetails(studentDetails);
+        alert(`Added new student ${studentDetails.name} successfully`);
         dispatchFunction({'name':'name','value':''})
         dispatchFunction({'name':'age','value':''})
     };
@@ -55,6 +56,7 @@ function HomePage(){
     const updateStudentDetails = (studentDetails,index)=>{
         console.log('update student details');
         studentDetailsList[index]= studentDetails;
+        alert(`updated ${studentDetails.name} details successfully`)
         setStudentDetailsList([...studentDetailsList]);
     }
 
@@ -74,33 +76,36 @@ function HomePage(){
         <>
             <NavBar title={navBarTitle}/>
             <div className="home-page-container">
-                <div className="student-form-container">
-                    <h3>Add New Student Details</h3>
-                    <form onSubmit={submitHandler}>
-                        <div className="form-block">
-                            <label htmlFor="name" className="form-label">Enter Student Name :</label><br/>
-                            <input 
-                                className="form-input" 
-                                name="name" 
-                                type="text"
-                                value={name} 
-                                onChange={changeValues}
-                                placeholder="your name" 
-                                required />
-                        </div>
-                        <div className="form-block">
-                            <label htmlFor="age" className="form-label">Enter your age :</label><br/>
-                            <input 
-                                className="form-input" 
-                                name="age" 
-                                type="number"
-                                value={age} 
-                                placeholder="your age" 
-                                onChange={changeValues}
-                                required/>
-                        </div>
-                        <input type="submit" value="add details" className="form-submit"/>
-                    </form>
+                <div className="student-form-flex-container">
+                    <div className="student-form-container">
+                        <h3>Add New Student Details</h3>
+                        <form onSubmit={submitHandler}>
+                            <div className="form-block">
+                                <label htmlFor="name" className="form-label">Enter Student Name :</label><br/>
+                                <input 
+                                    className="form-input" 
+                                    name="name" 
+                                    type="text"
+                                    value={name} 
+                                    onChange={changeValues}
+                                    placeholder="your name" 
+                                    required />
+                            </div>
+                            <div className="form-block">
+                                <label htmlFor="age" className="form-label">Enter your age :</label><br/>
+                                <input 
+                                    className="form-input" 
+                                    name="age" 
+                                    type="number"
+                                    value={age} 
+                                    placeholder="your age" 
+                                    onChange={changeValues}
+                                    required/>
+                            </div>
+                            <input type="submit" value="add details" className="form-submit"/>
+                        </form>
+                    </div>
+                    { showPopup && <UpdatePopup initialValue={updateValue} index={index} updateStudentDetails={updateStudentDetails} closePopup={()=>setShowPopup(false)}/>}
                 </div>
                 <div className="student-details-table-container">
                     <h3>Student Details Table</h3>
@@ -109,6 +114,7 @@ function HomePage(){
                             <tr className="table-head">
                                 <th>Name</th>
                                 <th>Age</th>
+                                <th>blood group</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -118,9 +124,9 @@ function HomePage(){
                                 <tr key={index}>
                                     <th>{studentDetail.name}</th>
                                     <th>{studentDetail.age}</th>
+                                    <th>blood group</th>
                                     <th>
                                         <button onClick={()=>toggleUpdatePop(studentDetail,index)}><i className="fa-solid fa-pen-to-square"></i></button>
-                                        <br/>
                                         <button onClick={()=>deleteStudentDetails(index)}><i className="fa-solid fa-trash"></i></button>
                                     </th>
                                 </tr>
@@ -131,7 +137,7 @@ function HomePage(){
                 </div>
 
             </div>
-            { showPopup && <UpdatePopup initialValue={updateValue} index={index} updateStudentDetails={updateStudentDetails} closePopup={()=>setShowPopup(false)}/>}
+            
         </>
         
     );
