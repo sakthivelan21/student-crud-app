@@ -62,8 +62,14 @@ function HomePage(){
 
     const deleteStudentDetails=(index)=>{
         console.log('in delete student details');
-        studentDetailsList.splice(index,1);
-        setStudentDetailsList( [...studentDetailsList]);
+        let deleteStudentName = studentDetailsList[index].name;
+        if(window.confirm(`Are you sure you want to delete ${deleteStudentName} details ??`))
+        {
+            
+            studentDetailsList.splice(index,1);
+            setStudentDetailsList( [...studentDetailsList]);
+            alert(`${deleteStudentName} details removed successfully`);
+        }
     }
 
     const toggleUpdatePop=(studentDetail,index)=>{
@@ -77,34 +83,37 @@ function HomePage(){
             <NavBar title={navBarTitle}/>
             <div className="home-page-container">
                 <div className="student-form-flex-container">
-                    <div className="student-form-container">
-                        <h3>Add New Student Details</h3>
-                        <form onSubmit={submitHandler}>
-                            <div className="form-block">
-                                <label htmlFor="name" className="form-label">Enter Student Name :</label><br/>
-                                <input 
-                                    className="form-input" 
-                                    name="name" 
-                                    type="text"
-                                    value={name} 
-                                    onChange={changeValues}
-                                    placeholder="your name" 
-                                    required />
-                            </div>
-                            <div className="form-block">
-                                <label htmlFor="age" className="form-label">Enter your age :</label><br/>
-                                <input 
-                                    className="form-input" 
-                                    name="age" 
-                                    type="number"
-                                    value={age} 
-                                    placeholder="your age" 
-                                    onChange={changeValues}
-                                    required/>
-                            </div>
-                            <input type="submit" value="add details" className="form-submit"/>
-                        </form>
-                    </div>
+                    {
+                        (!showPopup) &&
+                        <div className="student-form-container">
+                            <h3>Add New Student Details</h3>
+                            <form onSubmit={submitHandler}>
+                                <div className="form-block">
+                                    <label htmlFor="name" className="form-label">Enter Student Name :</label><br/>
+                                    <input 
+                                        className="form-input" 
+                                        name="name" 
+                                        type="text"
+                                        value={name} 
+                                        onChange={changeValues}
+                                        placeholder="your name" 
+                                        required />
+                                </div>
+                                <div className="form-block">
+                                    <label htmlFor="age" className="form-label">Enter your age :</label><br/>
+                                    <input 
+                                        className="form-input" 
+                                        name="age" 
+                                        type="number"
+                                        value={age} 
+                                        placeholder="your age" 
+                                        onChange={changeValues}
+                                        required/>
+                                </div>
+                                <input type="submit" value="add details" className="form-submit"/>
+                            </form>
+                        </div>
+                    }
                     { showPopup && <UpdatePopup initialValue={updateValue} index={index} updateStudentDetails={updateStudentDetails} closePopup={()=>setShowPopup(false)}/>}
                 </div>
                 <div className="student-details-table-container">
